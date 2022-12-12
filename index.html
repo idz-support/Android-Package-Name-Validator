@@ -40,7 +40,7 @@
         </div>
         <!-- <button type="submit" class="btn btn-primary mb-2" onclick="onSubmit()">Submit</button> -->
         <!-- </form> -->
-
+        <br>
         <h3 id="validation_text"></h3>
     </div>
     <div style="  display: flexbox; align-self: center; align-content: center; align-items: center;">
@@ -140,7 +140,7 @@
             //#endregion
             console.log(onlyLettersAndNumbers(package_name));
             hasKeyword = false;
-            result = "<strong>Correct</strong>";
+            result = "<strong>Valid</strong>";
             for (let index = 0; index < package_name.split(".").length; index++) {
                 const element = package_name.split(".")[index];
                 if (java_keywords.includes(element) || element == "") {
