@@ -72,6 +72,14 @@
             return /^[A-Za-z0-9._]*$/.test(str);
         }
 
+        function startsWithNumber(str) {
+            return /^\d/.test(str);
+        }
+
+        function startsWithUnderscore(str) {
+            return /^_/.test(str);
+        }
+
 
         function onSubmit() {
             console.log("On Suibmit clicked")
@@ -149,14 +157,20 @@
                     result = `'<strong>${element}</strong>' <small>cannot be in package name.</small>`;
                     break;
                 }
+
+                if (startsWithNumber(element)) {
+                    result = "<small>A <strong>Digit</strong> cannot be first character inside package segment</small>";
+                } else if (startsWithUnderscore(element)) {
+                    result = "<small>A <strong>Underscore</strong> cannot be first character inside package segment</small>";
+                }
             }
             if (package_name == "") {
                 result = "<small>Please Enter Package Name</small>";
             }
-            else if(!package_name.includes(".")){
+            else if (!package_name.includes(".")) {
                 result = `<small>Package must have atleast one "." separator</small>`;
             }
-            if(!onlyLettersAndNumbers(package_name) && package_name != "" ){
+            if (!onlyLettersAndNumbers(package_name) && package_name != "") {
                 result = "<small>Package name should only contain <strong>Alphanumeric characters</strong>, <strong>Underscore(_)</strong> and <strong>Dot(.)</strong></small>";
             }
             validation_text.innerHTML = result;
