@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .container {
+            display: flex;
+            /* align-items: center; */
+            align-self: center;
+            margin-top: 10%;
+        }
+    </style>
+
+    <title>Android Package Name Validator</title>
+</head>
+
+<body onload="onTextChange();">
+    <br>
+    <center>
+        <h2>Android Package Name Validator</h2>
+    </center>
+    <br>
+    <!-- <form class="form-inline"> -->
+    <div style=" margin: 35px 30% 30%;">
+        <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">Package</div>
+            </div>
+            <input type="text" oninput="onTextChange()" class="form-control" id="package_name_id"
+                placeholder="Package Name">
+
+        </div>
+        <!-- <button type="submit" class="btn btn-primary mb-2" onclick="onSubmit()">Submit</button> -->
+        <!-- </form> -->
+
+        <h3 id="validation_text"></h3>
+    </div>
+    <div style="  display: flexbox; align-self: center; align-content: center; align-items: center;">
+        <div class="input-group mb-2 mr-sm-2">
+            <!-- <div class="input-group-prepend">
+                <div class="input-group-text">Package</div>
+            </div>
+            <input type="text" oninput="onTextChange()" class="form-control" id="package_name_id"
+                placeholder="Package Name"> -->
+
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        function onSubmit() {
+            console.log("On Suibmit clicked")
+        }
+
+        function onTextChange() {
+            input_field = document.getElementById("package_name_id");
+            validation_text = document.getElementById("validation_text")
+            package_name = input_field.value
+            console.log("on text chamnge " + package_name);
+            validate(package_name, validation_text)
+        }
+
+        function validate(package_name, validation_text) {
+            //#region keywords
+            java_keywords = ["for",
+                "abstract",
+                "continue",
+                "new",
+                "switch",
+                "default",
+                "do",
+                "if",
+                "private",
+                "this",
+                "break",
+                "double",
+                "assert",
+                "goto",
+                "package",
+                "synchronized",
+                "boolean",
+                "implements",
+                "protected",
+                "throw",
+                "byte",
+                "else",
+                "import",
+                "public",
+                "throws",
+                "case",
+                "enum",
+                "instanceof",
+                "return",
+                "transient",
+                "catch",
+                "extends",
+                "int",
+                "short",
+                "try",
+                "char",
+                "final",
+                "interface",
+                "static",
+                "void",
+                "class",
+                "finally",
+                "long",
+                "strictfp",
+                "volatile",
+                "const",
+                "float",
+                "native",
+                "super",
+                "while"]
+            //#endregion
+            console.log(package_name.split("."));
+            hasKeyword = false;
+            result = "<strong>Correct</strong>";
+            for (let index = 0; index < package_name.split(".").length; index++) {
+                const element = package_name.split(".")[index];
+                if (java_keywords.includes(element) || element == "") {
+                    console.log("ERRORRR !!!!!!!!!!!!!!!!!!! " + element);
+
+                    result = `'<strong>${element}</strong>' <small>cannot be in package name.</small>`;
+                    break;
+                }
+            }
+            if (package_name == "") {
+                result = "<small>Please Enter Package Name</small>";
+            }
+            validation_text.innerHTML = result;
+        }
+    </script>
+</body>
+
+</html>
